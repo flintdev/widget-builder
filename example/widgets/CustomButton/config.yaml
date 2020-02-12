@@ -1,0 +1,46 @@
+params:
+  - group: Style
+    items:
+      - key: marginTop
+        name: Margin Top
+        type: integer
+        defaultValue: 5
+        ui: input
+      - key: marginBottom
+        name: Margin Bottom
+        type: integer
+        defaultValue: 5
+        ui: input
+      - key: marginLeft
+        name: Margin Left
+        type: integer
+        defaultValue: 5
+        ui: input
+      - key: marginRight
+        name: Margin Right
+        type: integer
+        defaultValue: 5
+        ui: input
+  - group: Parameters
+    items:
+      - key: variant
+        name: Variant
+        type: string
+        ui: select
+        options:
+          - contained
+          - outlined
+          - text
+        defaultValue: contained
+      - key: label
+        name: label
+        type: string
+        ui: input
+        defaultValue: CustomButton
+events:
+  - key: onClick
+    name: onClick
+    args:
+      - name: event
+        type: MouseEvent
+        required: false

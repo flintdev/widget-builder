@@ -4,7 +4,7 @@ import * as React from 'react';
 import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Button from "@material-ui/core/Button";
+import CustomButton from "./widgets/CustomButton";
 
 const styles = createStyles({
     root: {
@@ -44,10 +44,14 @@ class ExampleContainer extends React.Component<Props, object> {
                     textColor={"primary"}
                     onChange={this.handleTabChange}
                 >
-                    <Tab label="Button Component"/>
+                    <Tab label="CustomButton Component"/>
                 </Tabs>
                 <div>
-                    {tabIndex === 0 && <div/>}
+                    {tabIndex === 0 &&
+                    <div>
+                        <CustomButton params={{}} events={{}}/>
+                    </div>
+                    }
                 </div>
             </div>
         )
