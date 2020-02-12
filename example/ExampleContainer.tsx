@@ -58,6 +58,7 @@ class ExampleContainer extends React.Component<Props, object> {
                                 label: 'TEST Button'
                             }}
                             events={{}}
+                            dnd={true}
                         />
                     </div>
                     }
