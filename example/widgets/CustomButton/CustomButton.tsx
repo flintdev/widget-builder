@@ -1,44 +1,57 @@
 // example/widgets/CustomButton/CustomButton.tsx
 
 import * as React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Widget from '../../../src/Widget/Widget';
+import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
+import {Widget, WidgetProps} from '../../../src/Widget/Widget';
 import Button from "@material-ui/core/Button";
+import Container from "../../../src/Container";
 
-const useStyles = (params) => makeStyles({
+const styles = createStyles({
     root: {},
-    button: {
-        marginTop: params.marginTop,
-        marginBottom: params.marginBottom,
-        marginLeft: params.marginLeft,
-        marginRight: params.marginRight,
-    }
-
 });
 
-export interface Props {
-    params: any,
-    events: any
+interface Params {
+    variant?: 'outlined' | 'text' | 'contained',
+    label?: string,
+    marginTop?: number,
+    marginBottom?: number,
+    marginLeft?: number,
+    marginRight?: number,
 }
 
-class CustomButton extends React.Component<Props, object> {
-    state = {};
+export interface Props extends WithStyles<typeof styles>, WidgetProps {
+    params: Params,
+    events: object
+}
+
+class CustomButton extends Widget<Props> {
 
     componentDidMount(): void {
 
     }
 
-    render() {
-        const {params, events} = this.props;
-        const classes = useStyles(params)();
+    renderCustomComponent() {
+        const {classes, params, events} = this.props;
         return (
-            <Widget>
-                <div className={classes.root}>
-                    <Button variant={params.variant}>{params.label}</Button>
-                </div>
-            </Widget>
+            <div className={classes.root}>
+                <Button
+                    variant={params.variant}
+                    style={{
+                        marginTop: params.marginTop,
+                        marginBottom: params.marginBottom,
+                        marginLeft: params.marginLeft,
+                        marginRight: params.marginRight,
+                    }}
+                >
+                    <span>
+                        <Container/>
+                    </span>
+                    {params.label}
+                </Button>
+            </div>
         )
     }
 }
 
-export default CustomButton;
+export default withStyles(styles)(CustomButton);
+

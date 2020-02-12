@@ -1,34 +1,28 @@
 // src/Widget/Widget.tsx
 
 import * as React from 'react';
-import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
 
-const styles = createStyles({
-    root: {
-
-    },
-});
-
-export interface Props extends WithStyles<typeof styles>{
+export interface WidgetProps {
+    dnd?: boolean
 }
 
-class Widget extends React.Component<Props, object> {
-    state = {
-
-    };
+export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
+    state = {};
 
     componentDidMount(): void {
 
     }
 
-    render() {
-        const {classes} = this.props;
-        return (
-            <div className={classes.root}>
+    renderCustomComponent() {
+        return <div/>;
+    }
 
-            </div>
+    render() {
+        return (
+            <React.Fragment>
+                {this.renderCustomComponent()}
+            </React.Fragment>
         )
     }
 }
 
-export default withStyles(styles)(Widget);

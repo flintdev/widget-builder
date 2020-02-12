@@ -7,12 +7,10 @@ import Tab from "@material-ui/core/Tab";
 import CustomButton from "./widgets/CustomButton";
 
 const styles = createStyles({
-    root: {
-
-    },
+    root: {},
 });
 
-export interface Props extends WithStyles<typeof styles>{
+export interface Props extends WithStyles<typeof styles> {
 
 }
 
@@ -24,7 +22,7 @@ class ExampleContainer extends React.Component<Props, object> {
     state: State = {
         tabIndex: 0
     };
-    
+
     componentDidMount(): void {
 
     }
@@ -32,10 +30,11 @@ class ExampleContainer extends React.Component<Props, object> {
     handleTabChange = (event: React.ChangeEvent, tabIndex: number) => {
         this.setState({tabIndex});
     };
-    
+
     render() {
         const {classes} = this.props;
         const {tabIndex} = this.state;
+        console.log(tabIndex);
         return (
             <div className={classes.root}>
                 <Tabs
@@ -44,12 +43,22 @@ class ExampleContainer extends React.Component<Props, object> {
                     textColor={"primary"}
                     onChange={this.handleTabChange}
                 >
-                    <Tab label="CustomButton Component"/>
+                    <Tab label="Custom Button"/>
                 </Tabs>
                 <div>
                     {tabIndex === 0 &&
                     <div>
-                        <CustomButton params={{}} events={{}}/>
+                        <CustomButton
+                            params={{
+                                marginTop: 20,
+                                marginBottom: 20,
+                                marginLeft: 20,
+                                marginRight: 20,
+                                variant: 'contained',
+                                label: 'TEST Button'
+                            }}
+                            events={{}}
+                        />
                     </div>
                     }
                 </div>
