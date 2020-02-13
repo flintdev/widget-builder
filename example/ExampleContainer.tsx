@@ -41,7 +41,6 @@ class ExampleContainer extends React.Component<Props, object> {
     render() {
         const {classes} = this.props;
         const {tabIndex} = this.state;
-        console.log('tab index', tabIndex);
         return (
             <div className={classes.root}>
                 <Tabs

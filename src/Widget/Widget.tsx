@@ -9,14 +9,16 @@ export interface WidgetProps {
         draggableId: string,
         index: number
     },
+    droppableContainerStyle?: (isDraggingOver: boolean) => object,
+    draggableRootStyle?: (isDragging: boolean) => object,
 }
 
-const grid = 12;
+const grid = 8;
 
 const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: 'none',
-    padding: grid * 2,
+    // padding: grid * 2,
     margin: `0 0 ${grid}px 0`,
     // change background colour if dragging
     background: isDragging ? 'lightgreen' : 'grey',
@@ -27,7 +29,6 @@ const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
 const getListStyle = (isDraggingOver: boolean) => ({
     background: isDraggingOver ? 'lightblue' : 'lightgrey',
     padding: grid,
-    width: 250
 });
 
 export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
@@ -42,7 +43,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     placeContainer(tag: string) {
-        const {dnd} = this.props;
+        const {dnd, droppableContainerStyle} = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
@@ -50,7 +51,11 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
-                            style={getListStyle(snapshot.isDraggingOver)}
+                            style={
+                                !!droppableContainerStyle ?
+                                    droppableContainerStyle(snapshot.isDraggingOver) :
+                                    getListStyle(snapshot.isDraggingOver)
+                            }
                         >
                             {this.props.children}
                         </div>
@@ -62,7 +67,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     render() {
-        const {dnd, draggableProps} = this.props;
+        const {dnd, draggableProps, draggableRootStyle} = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
@@ -75,10 +80,13 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
-                            style={getItemStyle(
-                                snapshot.isDragging,
-                                provided.draggableProps.style
-                            )}
+                            style={
+                                !!draggableRootStyle ?
+                                    {...draggableRootStyle(snapshot.isDragging), ...provided.draggableProps.style} :
+                                    getItemStyle(
+                                        snapshot.isDragging,
+                                        provided.draggableProps.style
+                                    )}
                         >
                             {this.renderCustomComponent()}
                         </div>
