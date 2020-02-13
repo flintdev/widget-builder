@@ -1,19 +1,13 @@
 // src/Container/Container.tsx
 
 import * as React from 'react';
-import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
 
-const styles = createStyles({
-    root: {
 
-    },
-});
-
-export interface Props extends WithStyles<typeof styles>{
-
+export interface Props{
+    tag: string
 }
 
-class Container extends React.Component<Props, object> {
+export default class Container extends React.Component<Props, object> {
     state = {
     
     };
@@ -23,13 +17,11 @@ class Container extends React.Component<Props, object> {
     }
     
     render() {
-        const {classes} = this.props;
         return (
-            <div className={classes.root}>
-            
-            </div>
+            <React.Fragment>
+
+            </React.Fragment>
         )
     }
 }
 
-export default withStyles(styles)(Container);

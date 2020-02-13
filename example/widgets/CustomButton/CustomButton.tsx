@@ -4,7 +4,6 @@ import * as React from 'react';
 import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
 import {Widget, WidgetProps} from '../../../src/Widget/Widget';
 import Button from "@material-ui/core/Button";
-import Container from "../../../src/Container";
 
 const styles = createStyles({
     root: {},
@@ -44,7 +43,7 @@ class CustomButton extends Widget<Props> {
                     }}
                 >
                     <span>
-                        <Container/>
+                        {this.placeContainer('icon')}
                     </span>
                     {params.label}
                 </Button>
