@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
-import {Widget, WidgetProps} from '../../../src/Widget/Widget';
+import {Widget, WidgetProps} from '../../../src/Widget';
 import Button from "@material-ui/core/Button";
 
 const styles = createStyles({
