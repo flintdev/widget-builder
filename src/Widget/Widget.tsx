@@ -43,11 +43,11 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     placeContainer(tag: string) {
-        const {dnd, droppableContainerStyle} = this.props;
+        const {dnd, droppableContainerStyle, draggableProps} = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
-                <Droppable droppableId={tag}>
+                <Droppable droppableId={`${draggableProps!.draggableId}::${tag}`}>
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
@@ -61,6 +61,11 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                         </div>
                     )}
                 </Droppable>
+                }
+                {!dnd &&
+                <>
+                    {this.props.children}
+                </>
                 }
             </React.Fragment>
         )
