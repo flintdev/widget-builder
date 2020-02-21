@@ -59,8 +59,8 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                         >
                             <>
                                 {React.Children.map(this.props.children, (child: any, i) => {
-                                    if (child.props.tag === tag) {
-                                        return child
+                                    if (child.props.tag === tag || !child.props.tag) {
+                                        return child;
                                     }
                                 })}
                             </>
@@ -71,7 +71,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                 {!dnd &&
                 <>
                     {React.Children.map(this.props.children, (child: any, i) => {
-                        if (child.props.tag === tag) {
+                        if (child.props.tag === tag || !child.props.tag) {
                             return child
                         }
                     })}
