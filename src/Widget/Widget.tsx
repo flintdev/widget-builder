@@ -57,14 +57,24 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                                     getListStyle(snapshot.isDraggingOver)
                             }
                         >
-                            {this.props.children}
+                            <>
+                                {React.Children.map(this.props.children, (child: any, i) => {
+                                    if (child.props.tag === tag) {
+                                        return child
+                                    }
+                                })}
+                            </>
                         </div>
                     )}
                 </Droppable>
                 }
                 {!dnd &&
                 <>
-                    {this.props.children}
+                    {React.Children.map(this.props.children, (child: any, i) => {
+                        if (child.props.tag === tag) {
+                            return child
+                        }
+                    })}
                 </>
                 }
             </React.Fragment>
