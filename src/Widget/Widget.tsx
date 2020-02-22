@@ -51,6 +51,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
+                            {...provided.droppableProps}
                             style={
                                 !!droppableContainerStyle ?
                                     droppableContainerStyle(snapshot.isDraggingOver) :
@@ -64,6 +65,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                                     }
                                 })}
                             </>
+                            {provided.placeholder}
                         </div>
                     )}
                 </Droppable>
