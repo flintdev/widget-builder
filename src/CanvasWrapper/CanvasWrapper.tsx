@@ -22,8 +22,12 @@ export class CanvasWrapper extends React.Component<Props, object> {
             <DragDropContext onDragEnd={this.props.onDragEnd}>
                 <Droppable droppableId={droppableId}>
                     {(provided, snapshot) => (
-                        <div ref={provided.innerRef}>
+                        <div 
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
                             {this.props.children}
+                            {provided.placeholder}
                         </div>
                     )}
                 </Droppable>
