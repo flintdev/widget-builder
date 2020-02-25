@@ -1,6 +1,6 @@
 {
   "name": "@flintdev/widget-builder",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "the plugin framework for 3rd party developers to build custom UI widget",
   "main": "dist/index.js",
   "scripts": {
@@ -30,7 +30,6 @@
     "@types/js-yaml": "^3.12.2",
     "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.17",
-    "@types/react-beautiful-dnd": "^12.1.1",
     "@types/react-dom": "^16.9.4",
     "css-loader": "^3.4.0",
     "html-webpack-plugin": "^3.2.0",
@@ -56,6 +55,7 @@
     "lodash": "^4.17.15 || ^4.0.0"
   },
   "dependencies": {
+    "@types/react-beautiful-dnd": "^12.1.1",
     "react-beautiful-dnd": "^12.2.0"
   }
 }
