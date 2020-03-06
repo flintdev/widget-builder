@@ -76,6 +76,7 @@ class ExampleContainer extends React.Component<Props, object> {
                                                 draggableId: 'id1',
                                                 index: 0
                                             }}
+                                            renderHandle={(dragHandleProps) => <div {...dragHandleProps}>handle</div>}
                                         />
                                         <CustomButton
                                             params={{

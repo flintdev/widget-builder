@@ -1,7 +1,7 @@
 // src/Widget/Widget.tsx
 
 import * as React from 'react';
-import {Draggable, Droppable} from "react-beautiful-dnd";
+import { Draggable, Droppable, DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
 
 export interface WidgetProps {
     dnd?: boolean,
@@ -11,6 +11,7 @@ export interface WidgetProps {
     },
     droppableContainerStyle?: (isDraggingOver: boolean) => object,
     draggableRootStyle?: (isDragging: boolean) => object,
+    renderHandle?: (dragHandleProps: DraggableProvidedDragHandleProps | undefined) => React.ReactElement,
 }
 
 const grid = 8;
@@ -39,76 +40,82 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     renderCustomComponent() {
-        return <div/>;
+        return <div />;
     }
 
     placeContainer(tag: string) {
-        const {dnd, droppableContainerStyle, draggableProps} = this.props;
+        const { dnd, droppableContainerStyle, draggableProps } = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
-                <Droppable droppableId={`${draggableProps!.draggableId}::${tag}`}>
-                    {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                            style={
-                                !!droppableContainerStyle ?
-                                    droppableContainerStyle(snapshot.isDraggingOver) :
-                                    getListStyle(snapshot.isDraggingOver)
-                            }
-                        >
-                            <>
-                                {React.Children.map(this.props.children, (child: any, i) => {
-                                    if (child.props.tag === tag || !child.props.tag) {
-                                        return child;
-                                    }
-                                })}
-                            </>
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
+                    <Droppable droppableId={`${draggableProps!.draggableId}::${tag}`}>
+                        {(provided, snapshot) => (
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                style={
+                                    !!droppableContainerStyle ?
+                                        droppableContainerStyle(snapshot.isDraggingOver) :
+                                        getListStyle(snapshot.isDraggingOver)
+                                }
+                            >
+                                <>
+                                    {React.Children.map(this.props.children, (child: any, i) => {
+                                        if (child.props.tag === tag || !child.props.tag) {
+                                            return child;
+                                        }
+                                    })}
+                                </>
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
                 }
                 {!dnd &&
-                <>
-                    {React.Children.map(this.props.children, (child: any, i) => {
-                        if (child.props.tag === tag || !child.props.tag) {
-                            return child
-                        }
-                    })}
-                </>
+                    <>
+                        {React.Children.map(this.props.children, (child: any, i) => {
+                            if (child.props.tag === tag || !child.props.tag) {
+                                return child
+                            }
+                        })}
+                    </>
                 }
             </React.Fragment>
         )
     }
 
     render() {
-        const {dnd, draggableProps, draggableRootStyle} = this.props;
+        const { dnd, draggableProps, draggableRootStyle, renderHandle } = this.props;
+
         return (
             <React.Fragment>
                 {!!dnd &&
-                <Draggable
-                    draggableId={draggableProps!.draggableId}
-                    index={draggableProps!.index}
-                >
-                    {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            style={
-                                !!draggableRootStyle ?
-                                    {...draggableRootStyle(snapshot.isDragging), ...provided.draggableProps.style} :
-                                    getItemStyle(
-                                        snapshot.isDragging,
-                                        provided.draggableProps.style
-                                    )}
-                        >
-                            {this.renderCustomComponent()}
-                        </div>
-                    )}
-                </Draggable>
+                    <Draggable
+                        draggableId={draggableProps!.draggableId}
+                        index={draggableProps!.index}
+                    >
+                        {(provided, snapshot) => {
+                            const dragHandleProps = !!renderHandle ? {} : provided.dragHandleProps
+                            return (
+                                <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...dragHandleProps}
+                                    style={
+                                        !!draggableRootStyle ?
+                                            { ...draggableRootStyle(snapshot.isDragging), ...provided.draggableProps.style } :
+                                            getItemStyle(
+                                                snapshot.isDragging,
+                                                provided.draggableProps.style
+                                            )}
+                                >
+                                    {this.renderCustomComponent()}
+                                    {!!renderHandle && renderHandle(provided.dragHandleProps)}
+                                </div>
+                            )
+                        }
+                        }
+                    </Draggable>
                 }
                 {!dnd && this.renderCustomComponent()}
             </React.Fragment>
