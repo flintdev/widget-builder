@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import {withStyles, WithStyles, createStyles} from '@material-ui/core/styles';
-import {Widget, WidgetProps} from '../../../src/Widget/Widget';
+import {Widget, WidgetProps} from '../../../../src/Widget';
 import Grid from "@material-ui/core/Grid";
 
 const styles = createStyles({
@@ -33,7 +33,7 @@ class CustomGrid extends Widget<Props> {
                         {this.placeContainer('left')}
                     </Grid>
                     <Grid item xs={6}>
-                        {/*{this.placeContainer('right')}*/}
+                        {this.placeContainer('right')}
                     </Grid>
                 </Grid>
             </div>
