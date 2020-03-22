@@ -42,9 +42,6 @@ class CustomButton extends Widget<Props> {
                         marginRight: params.marginRight,
                     }}
                 >
-                    <span>
-                        {this.placeContainer('icon')}
-                    </span>
                     {params.label}
                 </Button>
             </div>
