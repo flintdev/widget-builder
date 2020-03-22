@@ -1,7 +1,7 @@
 // src/Widget/Widget.tsx
 
 import * as React from 'react';
-import { Draggable, Droppable, DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
+import { Draggable, Droppable } from "@flintdev/flint-react-dnd";
 
 export interface WidgetProps {
     dnd?: boolean,
@@ -9,22 +9,16 @@ export interface WidgetProps {
         draggableId: string,
         index: number
     },
+    onDragEnd?: Function,
     droppableContainerStyle?: (isDraggingOver: boolean) => object,
-    draggableRootStyle?: (isDragging: boolean) => object,
-    renderHandle?: (dragHandleProps: DraggableProvidedDragHandleProps | undefined) => React.ReactElement,
+    draggableRootStyle?: () => object
 }
 
 const grid = 8;
 
-const getItemStyle = (isDragging: boolean, draggableStyle: any) => ({
+const getItemStyle = () => ({
     // some basic styles to make the items look a bit nicer
-    userSelect: 'none',
-    // padding: grid * 2,
-    margin: `0 0 ${grid}px 0`,
-    // change background colour if dragging
-    background: isDragging ? 'lightgreen' : 'grey',
-    // styles we need to apply on draggables
-    ...draggableStyle
+    
 });
 
 const getListStyle = (isDraggingOver: boolean) => ({
@@ -44,19 +38,21 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     placeContainer(tag: string) {
-        const { dnd, droppableContainerStyle, draggableProps } = this.props;
+        const { dnd, droppableContainerStyle, draggableProps, onDragEnd } = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
-                    <Droppable droppableId={`${draggableProps!.draggableId}::${tag}`}>
-                        {(provided, snapshot) => (
+                    <Droppable
+                        onDragEnd={onDragEnd}
+                        droppableId={`${draggableProps!.draggableId}::${tag}`}
+                    >
+                        {({handler, status}) => (
                             <div
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
+                                {...handler}
                                 style={
                                     !!droppableContainerStyle ?
-                                        droppableContainerStyle(snapshot.isDraggingOver) :
-                                        getListStyle(snapshot.isDraggingOver)
+                                        droppableContainerStyle(status.isDraggingOver) :
+                                        getListStyle(status.isDraggingOver)
                                 }
                             >
                                 <>
@@ -66,7 +62,6 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                                         }
                                     })}
                                 </>
-                                {provided.placeholder}
                             </div>
                         )}
                     </Droppable>
@@ -85,32 +80,23 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     render() {
-        const { dnd, draggableProps, draggableRootStyle, renderHandle } = this.props;
+        const { dnd, draggableProps, draggableRootStyle, onDragEnd } = this.props;
 
         return (
             <React.Fragment>
                 {!!dnd &&
                     <Draggable
+                        onDragEnd={onDragEnd}
                         draggableId={draggableProps!.draggableId}
                         index={draggableProps!.index}
                     >
-                        {(provided, snapshot) => {
-                            const dragHandleProps = !!renderHandle ? {} : provided.dragHandleProps
+                        {({handler}) => {
                             return (
                                 <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...dragHandleProps}
-                                    style={
-                                        !!draggableRootStyle ?
-                                            { ...draggableRootStyle(snapshot.isDragging), ...provided.draggableProps.style } :
-                                            getItemStyle(
-                                                snapshot.isDragging,
-                                                provided.draggableProps.style
-                                            )}
+                                    {...handler}
+                                    style={!!draggableRootStyle ? draggableRootStyle() : getItemStyle()}
                                 >
                                     {this.renderCustomComponent()}
-                                    {!!renderHandle && renderHandle(provided.dragHandleProps)}
                                 </div>
                             )
                         }
