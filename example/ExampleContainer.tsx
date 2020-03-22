@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Droppable, DropLine } from "@flintdev/flint-react-dnd";
+import { Droppable } from "@flintdev/flint-react-dnd";
 import CustomButton from './widgets/CustomButton/CustomButton';
 import CustomGrid from './widgets/CustomGrid/CustomGrid';
 
@@ -15,7 +15,7 @@ export default class ExampleContainer extends React.Component<any, any> {
         return (
             <>
                 <Droppable 
-                    onDragEnd={(data: any) => this.handleOnDragEnd(data)}
+                    onDragEnd={this.handleOnDragEnd}
                     droppableId={"mainContainer"} type={"CONTAINER"} index={0}>
                     {({ handler }) => (
                         <div {...handler}
@@ -41,11 +41,11 @@ export default class ExampleContainer extends React.Component<any, any> {
                                     draggableId: 'id1',
                                     index: 0
                                 }}
-                                onDragEnd={(data: any) => this.handleOnDragEnd(data)}
+                                onDragEnd={this.handleOnDragEnd}
                             />
 
                             <CustomGrid
-                                onDragEnd={(data: any) => this.handleOnDragEnd(data)}
+                                onDragEnd={this.handleOnDragEnd}
                                 dnd={true}
                                 draggableProps={{
                                     draggableId: 'id2',
@@ -61,7 +61,6 @@ export default class ExampleContainer extends React.Component<any, any> {
                                     }
                                 }
                             />
-                            <DropLine />
                         </div>
                     )}
                 </Droppable>

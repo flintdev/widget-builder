@@ -55,7 +55,7 @@
     "lodash": "^4.17.15 || ^4.0.0"
   },
   "dependencies": {
-    "@flintdev/flint-react-dnd": "0.0.1",
+    "@flintdev/flint-react-dnd": "0.0.3",
     "@types/react-beautiful-dnd": "^12.1.1",
     "react-beautiful-dnd": "^12.2.0"
   }

@@ -7,7 +7,8 @@ export interface WidgetProps {
     dnd?: boolean,
     draggableProps?: {
         draggableId: string,
-        index: number
+        index: number,
+        isDraggable?: boolean
     },
     onDragEnd?: Function,
     droppableContainerStyle?: (isDraggingOver: boolean) => object,
@@ -86,6 +87,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
             <React.Fragment>
                 {!!dnd &&
                     <Draggable
+                        isDraggable={draggableProps?.isDraggable}
                         onDragEnd={onDragEnd}
                         draggableId={draggableProps!.draggableId}
                         index={draggableProps!.index}
