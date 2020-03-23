@@ -13,14 +13,13 @@ export interface WidgetProps {
     onDragEnd?: Function,
     droppableContainerStyle?: (isDraggingOver: boolean) => object,
     draggableRootStyle?: () => object,
-    renderHandle?: Function,
+    onMouseDown?: Function,
 }
 
 const grid = 8;
 
 const getItemStyle = () => ({
     // some basic styles to make the items look a bit nicer
-    
 });
 
 const getListStyle = (isDraggingOver: boolean) => ({
@@ -82,8 +81,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     render() {
-        const { dnd, draggableProps, draggableRootStyle, onDragEnd, renderHandle } = this.props;
-
+        const { dnd, draggableRootStyle, draggableProps, onDragEnd, onMouseDown } = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
@@ -98,9 +96,9 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                                 <div
                                     {...handler}
                                     style={!!draggableRootStyle ? draggableRootStyle() : getItemStyle()}
+                                    onMouseDown={!!onMouseDown ? onMouseDown(draggableProps!.draggableId) : null}
                                 >
                                     {this.renderCustomComponent()}
-                                    {!!renderHandle && renderHandle()}
                                 </div>
                             )
                         }
