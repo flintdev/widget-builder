@@ -82,6 +82,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
 
     render() {
         const { dnd, draggableRootStyle, draggableProps, onDragEnd, onMouseDown } = this.props;
+
         return (
             <React.Fragment>
                 {!!dnd &&
@@ -96,7 +97,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                                 <div
                                     {...handler}
                                     style={!!draggableRootStyle ? draggableRootStyle() : getItemStyle()}
-                                    onMouseDown={!!onMouseDown ? onMouseDown(draggableProps!.draggableId) : null}
+                                    onMouseDown={(e) => !!onMouseDown ? onMouseDown(e, draggableProps!.draggableId) : null}
                                 >
                                     {this.renderCustomComponent()}
                                 </div>
