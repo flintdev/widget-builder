@@ -97,7 +97,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                                 <div
                                     {...handler}
                                     style={!!draggableRootStyle ? draggableRootStyle() : getItemStyle()}
-                                    onMouseDown={(e) => !!onMouseDown ? onMouseDown(e, draggableProps!.draggableId) : null}
+                                    onMouseDown={(e) => !!onMouseDown ? onMouseDown(e) : null}
                                 >
                                     {this.renderCustomComponent()}
                                 </div>
