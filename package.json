@@ -1,6 +1,6 @@
 {
   "name": "@flintdev/widget-builder",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "the plugin framework for 3rd party developers to build custom UI widget",
   "main": "dist/index.js",
   "scripts": {
@@ -55,7 +55,7 @@
     "lodash": "^4.17.15 || ^4.0.0"
   },
   "dependencies": {
-    "@flintdev/flint-react-dnd": "0.0.5",
+    "@flintdev/flint-react-dnd": "0.0.6",
     "@types/react-beautiful-dnd": "^12.1.1",
     "react-beautiful-dnd": "^12.2.0"
   }
