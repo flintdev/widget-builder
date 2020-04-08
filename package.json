@@ -1,6 +1,6 @@
 {
   "name": "@flintdev/widget-builder",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "the plugin framework for 3rd party developers to build custom UI widget",
   "main": "dist/index.js",
   "scripts": {
