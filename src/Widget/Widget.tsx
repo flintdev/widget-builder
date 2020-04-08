@@ -48,7 +48,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                         onDragEnd={onDragEnd}
                         droppableId={`${draggableProps!.draggableId}::${tag}`}
                     >
-                        {({handler, status}) => (
+                        {({ handler, status }) => (
                             <div
                                 {...handler}
                                 style={
@@ -93,7 +93,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                         draggableId={draggableProps!.draggableId}
                         index={draggableProps!.index}
                     >
-                        {({handler}) => {
+                        {({ handler }) => {
                             return (
                                 <div
                                     {...handler}
