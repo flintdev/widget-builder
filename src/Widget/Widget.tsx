@@ -14,6 +14,7 @@ export interface WidgetProps {
     droppableContainerStyle?: (isDraggingOver: boolean) => object,
     draggableRootStyle?: () => object,
     onMouseDown?: Function,
+    tag?: string,
 }
 
 const grid = 8;
@@ -70,7 +71,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                 {!dnd &&
                     <>
                         {React.Children.map(this.props.children, (child: any, i) => {
-                            if (child.props.tag === tag || !child.props.tag) {
+                            if (!!child && (child.props.tag === tag || !child.props.tag)) {
                                 return child
                             }
                         })}

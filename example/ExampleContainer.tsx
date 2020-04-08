@@ -12,6 +12,7 @@ export default class ExampleContainer extends React.Component<any, any> {
     }
 
     render() {
+        let mark = "left";
         return (
             <>
                 <Droppable 
@@ -26,6 +27,14 @@ export default class ExampleContainer extends React.Component<any, any> {
                                 flexDirection: 'column'
                             }}
                         >
+                            <CustomGrid>
+                                {mark === 'left' &&
+                                <CustomButton params={{label: 'TEST Button Left'}} events={{}} tag={'left'}/>
+                                }
+                                {mark === 'right' &&
+                                <CustomButton params={{label: 'TEST Button Right'}} events={{}} tag={'right'}/>
+                                }
+                            </CustomGrid>
                             <CustomButton
                                 params={{
                                     marginTop: 20,
