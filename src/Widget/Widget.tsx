@@ -15,6 +15,7 @@ export interface WidgetProps {
     draggableRootStyle?: () => object,
     onMouseDown?: Function,
     tag?: string,
+    defaultTag?: string
 }
 
 const grid = 8;
@@ -40,7 +41,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
     }
 
     placeContainer(tag: string) {
-        const { dnd, droppableContainerStyle, draggableProps, onDragEnd } = this.props;
+        const { dnd, droppableContainerStyle, draggableProps, onDragEnd, defaultTag } = this.props;
         return (
             <React.Fragment>
                 {!!dnd &&
@@ -59,7 +60,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                             >
                                 <>
                                     {React.Children.map(this.props.children, (child: any, i) => {
-                                        if (child.props.tag === tag || !child.props.tag) {
+                                        if (child.props.tag === tag || (!child.props.tag && (tag === defaultTag))) {
                                             return child;
                                         }
                                     })}
@@ -71,7 +72,7 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
                 {!dnd &&
                     <>
                         {React.Children.map(this.props.children, (child: any, i) => {
-                            if (!!child && (child.props.tag === tag || !child.props.tag)) {
+                            if (!!child && (child.props.tag === tag || (!child.props.tag && (tag === defaultTag)))) {
                                 return child
                             }
                         })}
