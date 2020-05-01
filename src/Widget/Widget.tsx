@@ -40,6 +40,10 @@ export class Widget<T extends WidgetProps> extends React.Component<T, {}> {
         return <div />;
     }
 
+    isInCanvas = () => {
+        return !!this.props.dnd;
+    };
+
     placeContainer(tag: string) {
         const { dnd, droppableContainerStyle, draggableProps, onDragEnd, defaultTag } = this.props;
         return (

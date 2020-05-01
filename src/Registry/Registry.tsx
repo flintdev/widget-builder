@@ -33,7 +33,7 @@ export class Registry {
     };
 
     pack = () => {
-        const getWidgetConfiguration = (name: string) => {
+        const getWidgetConfiguration = (name: string): any => {
             return this.widgetConfigMap[name];
         };
         const getWidget = (name: string, props: any): ReactElement => {
